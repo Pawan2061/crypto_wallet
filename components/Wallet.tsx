@@ -1,15 +1,31 @@
 "use client";
 import { useState } from "react";
 import Mnemonics from "./Mnemonic";
+import { generateMnemonic } from "bip39";
+import { log } from "util";
 export default function Wallet() {
   const [show, setShow] = useState(false);
+  const [mnemonic, setMnemonic] = useState<string[]>([]);
+  const handleClick = async () => {
+    const values = generateMnemonic();
+    console.log(values, "neifnei");
+
+    setMnemonic(values.split(" "));
+    setShow(true);
+  };
+
   return (
     <main className="pt-0 flex flex-col items-center gap-4">
       <div className="flex flex-col gap-4">
         <h1 className="text-center text-white font-semibold text-2xl">
           Secret Phase
         </h1>
-        <button className="bg-gradient-to-r from-blue-500 to-teal-500 text-white font-semibold py-2 px-6 rounded-xl shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 transform hover:scale-105">
+        <button
+          onClick={() => {
+            handleClick();
+          }}
+          className="bg-gradient-to-r from-blue-500 to-teal-500 text-white font-semibold py-2 px-6 rounded-xl shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 transform hover:scale-105"
+        >
           Generate Secret Phrase
         </button>
       </div>
@@ -37,8 +53,7 @@ export default function Wallet() {
               ></path>
             </svg>
           </button>
-          {/* {show &&
-          } */}
+
           {show ? (
             <span className="text-gray-200 text-lg font-medium ml-auto">
               Hide Secret Phrase
@@ -52,7 +67,7 @@ export default function Wallet() {
 
         {show && (
           <>
-            <Mnemonics />
+            <Mnemonics values={mnemonic} />
           </>
         )}
       </div>
