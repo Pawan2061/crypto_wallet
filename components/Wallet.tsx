@@ -3,8 +3,10 @@ import { useState } from "react";
 import Mnemonics from "./Mnemonic";
 import { generateMnemonic } from "bip39";
 import { log } from "util";
+import SolAndEth from "./solAndEth";
 export default function Wallet() {
   const [show, setShow] = useState(false);
+  const [display, setDisplay] = useState(false);
   const [mnemonic, setMnemonic] = useState<string[]>([]);
   const handleClick = async () => {
     const values = generateMnemonic();
@@ -12,6 +14,11 @@ export default function Wallet() {
 
     setMnemonic(values.split(" "));
     setShow(true);
+  };
+
+  const showWallets = () => {
+    setDisplay(!display);
+    console.log("inside showing wallets");
   };
 
   return (
@@ -72,7 +79,24 @@ export default function Wallet() {
         )}
       </div>
 
-      <div>3</div>
+      {display ? (
+        <SolAndEth />
+      ) : (
+        <button
+          onClick={showWallets}
+          className="bg-gradient-to-r from-slate-500 to-gray-600 
+                text-white font-semibold py-3 px-6
+                rounded-2xl shadow-lg 
+                hover:from-slate-600 hover:to-gray-700 
+                transition-all duration-300 
+                transform hover:scale-105 
+                active:scale-95
+                focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-opacity-50"
+        >
+          Show Wallets
+        </button>
+      )}
+
       <div>4</div>
     </main>
   );
