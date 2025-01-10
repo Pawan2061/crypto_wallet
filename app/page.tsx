@@ -1,4 +1,5 @@
 import AnimatedGridBackground from "@/components/grid";
+import Wallet from "@/components/Wallet";
 import Image from "next/image";
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
     <div className="">
       hii
       <AnimatedGridBackground />
+      <Wallet />
     </div>
   );
 }

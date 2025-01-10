@@ -7,7 +7,7 @@ const AnimatedGridBackground = () => {
   const height = "100%";
 
   return (
-    <div className="fixed inset-0 -z-10">
+    <div className="fixed inset-0 -z-10 bg-gray-900">
       <svg width={width} height={height} className="w-full h-full animate-grid">
         <defs>
           <pattern
