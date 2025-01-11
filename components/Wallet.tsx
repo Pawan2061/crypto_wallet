@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Mnemonics from "./Mnemonic";
 import { generateMnemonic } from "bip39";
-import { log } from "util";
+import { MakeKeypair } from "ed25519";
 import SolAndEth from "./solAndEth";
 export default function Wallet() {
   const [show, setShow] = useState(false);
@@ -80,7 +80,7 @@ export default function Wallet() {
       </div>
 
       {display ? (
-        <SolAndEth />
+        <SolAndEth mnemonic={JSON.stringify(mnemonic)} />
       ) : (
         <button
           onClick={showWallets}
