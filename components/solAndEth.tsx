@@ -30,11 +30,12 @@ export default function SolAndEth({ mnemonic }: any) {
     const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
     const keypair = Keypair.fromSecretKey(secret);
     setIndex(index + 1);
-
-    console.log(seed, "sol here");
+    setSolAddress(keypair.publicKey.toString());
+    setSolKey(Buffer.from(keypair.secretKey).toString("hex"));
   };
-  const handleGenerateEth = () => {
+  const handleGenerateEth = async () => {
     console.log("eth here");
+    const seed = await mnemonicToSeed(mnemonic);
   };
 
   return (
