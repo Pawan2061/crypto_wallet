@@ -4,10 +4,15 @@ import Mnemonics from "./Mnemonic";
 import { generateMnemonic } from "bip39";
 import { MakeKeypair } from "ed25519";
 import SolAndEth from "./solAndEth";
+import { useRouter } from "next/navigation";
 export default function Wallet() {
   const [show, setShow] = useState(false);
   const [display, setDisplay] = useState(false);
-  const [mnemonic, setMnemonic] = useState<string[]>([]);
+  const [mnemonic, setMnemonic] = useState<string[]>(
+    generateMnemonic().split(" ")
+  );
+  const router = useRouter();
+
   const handleClick = async () => {
     const values = generateMnemonic();
     console.log(values, "neifnei");
@@ -51,7 +56,9 @@ export default function Wallet() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-6 h-6 transform transition-transform duration-300 rotate-180"
+              className={`w-6 h-6 transform transition-transform duration-300 ${
+                show ? "rotate-180" : "rotate-0"
+              }`}
             >
               <path
                 strokeLinecap="round"
@@ -97,7 +104,13 @@ export default function Wallet() {
         </button>
       )}
 
-      <div>4</div>
+      <button
+        onClick={() => router.push("/wallets")}
+        className="px-6 py-1 transition-all duration-300 mb-8 
+                transform hover:scale-105  rounded-xl font-medium relative overflow-hidden bg-[#4F46E5] text-white"
+      >
+        View all Wallet<span className="ml-2">→</span>
+      </button>
     </main>
   );
 }

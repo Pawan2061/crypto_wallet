@@ -50,7 +50,6 @@ export default function SolAndEth({ mnemonic }: any) {
   return (
     <div className="p-6 rounded-lg w-full max-w-screen-lg mx-auto">
       <div className="flex flex-wrap justify-between items-start mb-2 text-white">
-        {/* Solana Wallet */}
         {isVisible && (
           <>
             <div className="group relative rounded-xl p-[1px] my-8 w-full md:w-5/12">
@@ -117,7 +116,6 @@ export default function SolAndEth({ mnemonic }: any) {
                   Generate Ethereum Wallet
                 </button>
 
-                {/* {isVisible && ( */}
                 <>
                   <div className="flex flex-col items-start w-full">
                     <label className="text-lg font-medium mb-1 text-gray-400">
@@ -159,14 +157,12 @@ export default function SolAndEth({ mnemonic }: any) {
                     </div>
                   </div>
                 </>
-                {/* )} */}
               </div>
             </div>
           </>
         )}
       </div>
 
-      {/* Hide/Show Button */}
       <button
         onClick={() => setIsVisible(!isVisible)}
         className="flex items-center mx-auto text-white font-semibold border border-gray-500 rounded-xl bg-gray-700 px-4 py-2 shadow-md transition duration-300 hover:bg-gray-600"
