@@ -104,13 +104,13 @@ export default function Wallet() {
         </button>
       )}
 
-      <button
+      {/* <button
         onClick={() => router.push("/wallets")}
         className="px-6 py-1 transition-all duration-300 mb-8 
                 transform hover:scale-105  rounded-xl font-medium relative overflow-hidden bg-[#4F46E5] text-white"
       >
         View all Wallet<span className="ml-2">→</span>
-      </button>
+      </button> */}
     </main>
   );
 }

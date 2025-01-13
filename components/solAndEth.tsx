@@ -1,19 +1,28 @@
+"use client";
 import { mnemonicToSeed } from "bip39";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { derivePath } from "ed25519-hd-key";
 import nacl from "tweetnacl";
 import { Keypair } from "@solana/web3.js";
 import { HDNodeWallet } from "ethers";
 import { Wallet } from "ethers";
+import { useRouter } from "next/navigation";
 
+export type WalletInterface = {
+  walletName: string;
+
+  walletAdress: string;
+  privateKey: string;
+};
 export default function SolAndEth({ mnemonic }: any) {
   const [solAddress, setSolAddress] = useState("");
   const [ethAddress, setEthAddress] = useState("");
   const [solKey, setSolKey] = useState("");
   const [ethKey, setEthKey] = useState("");
   const [isVisible, setIsVisible] = useState(true);
+  const [wallets, setWallets] = useState<WalletInterface[]>([]);
   const [index, setIndex] = useState(0);
-
+  const router = useRouter();
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     alert("Copied to clipboard!");
@@ -32,6 +41,12 @@ export default function SolAndEth({ mnemonic }: any) {
     setIndex(index + 1);
     setSolAddress(keypair.publicKey.toString());
     setSolKey(Buffer.from(keypair.secretKey).toString("hex"));
+    const solWallet: WalletInterface = {
+      privateKey: Buffer.from(keypair.secretKey).toString("hex"),
+      walletAdress: keypair.publicKey.toString(),
+      walletName: `Solana-wallet${index}`,
+    };
+    setWallets([...wallets, solWallet]);
   };
 
   const handleGenerateEth = async () => {
@@ -45,7 +60,23 @@ export default function SolAndEth({ mnemonic }: any) {
     setIndex(index + 1);
     setEthKey(privateKey);
     setEthAddress(wallet.address);
+    const ethWallet: WalletInterface = {
+      privateKey: privateKey,
+      walletAdress: wallet.address,
+      walletName: `Ethereum-wallet${index}`,
+    };
+    setWallets([...wallets, ethWallet]);
   };
+  useEffect(() => {
+    const savedWallets = localStorage.getItem("wallets");
+    if (savedWallets) {
+      setWallets(JSON.parse(savedWallets));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("wallets", JSON.stringify(wallets));
+  }, [wallets]);
 
   return (
     <div className="p-6 rounded-lg w-full max-w-screen-lg mx-auto">
@@ -168,6 +199,13 @@ export default function SolAndEth({ mnemonic }: any) {
         className="flex items-center mx-auto text-white font-semibold border border-gray-500 rounded-xl bg-gray-700 px-4 py-2 shadow-md transition duration-300 hover:bg-gray-600"
       >
         {isVisible ? "Hide" : "Show"} Wallets
+      </button>
+      <button
+        onClick={() => router.push("/wallets")}
+        className="px-6 py-1 transition-all flex items-center mx-auto mt-9 duration-300 mb-8 
+                transform hover:scale-105  rounded-xl font-medium relative overflow-hidden bg-[#4F46E5] text-white"
+      >
+        View all Wallet<span className="ml-2">→</span>
       </button>
     </div>
   );

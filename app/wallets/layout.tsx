@@ -1,6 +1,7 @@
+import RecoilContextProvider from "@/components/contextProvider";
 import AnimatedGridBackground from "@/components/grid";
+import { RecoilRoot } from "recoil";
 
-// wallets/layout.tsx
 export default function WalletsLayout({
   children,
 }: {
