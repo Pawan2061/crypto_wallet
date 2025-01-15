@@ -14,6 +14,8 @@ export type WalletInterface = {
   walletAdress: string;
   privateKey: string;
 };
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export default function SolAndEth({ mnemonic }: any) {
   const [solAddress, setSolAddress] = useState("");
   const [ethAddress, setEthAddress] = useState("");

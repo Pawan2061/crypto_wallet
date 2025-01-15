@@ -2,16 +2,13 @@
 import { useState } from "react";
 import Mnemonics from "./Mnemonic";
 import { generateMnemonic } from "bip39";
-import { MakeKeypair } from "ed25519";
 import SolAndEth from "./solAndEth";
-import { useRouter } from "next/navigation";
 export default function Wallet() {
   const [show, setShow] = useState(false);
   const [display, setDisplay] = useState(false);
   const [mnemonic, setMnemonic] = useState<string[]>(
     generateMnemonic().split(" ")
   );
-  const router = useRouter();
 
   const handleClick = async () => {
     const values = generateMnemonic();
@@ -103,14 +100,6 @@ export default function Wallet() {
           Show Wallets
         </button>
       )}
-
-      {/* <button
-        onClick={() => router.push("/wallets")}
-        className="px-6 py-1 transition-all duration-300 mb-8 
-                transform hover:scale-105  rounded-xl font-medium relative overflow-hidden bg-[#4F46E5] text-white"
-      >
-        View all Wallet<span className="ml-2">→</span>
-      </button> */}
     </main>
   );
 }

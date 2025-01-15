@@ -29,7 +29,7 @@ export default function WalletsPage() {
 
   return (
     <div className="p-6 max-w-screen-xl mx-auto">
-      <h1 className="text-2xl font-bold text-white mb-6">Your Wallets</h1>
+      <h1 className="text-2xl font-bold text-gray-600 mb-6">Your Wallets</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {wallets.map((wallet, index) => (
           <div
